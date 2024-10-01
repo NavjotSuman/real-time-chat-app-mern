@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import chatSlice from "./chatSlice";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authSlice,
+  chat: chatSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

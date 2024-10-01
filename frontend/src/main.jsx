@@ -7,17 +7,20 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from 'redux-persist'
+import SocketProvider from './context/SocketContext.jsx'
 
 
 const persistor = persistStore(store);
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-      <Toaster closeButton />
-    </PersistGate>
-  </Provider>
-  // </StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <SocketProvider>
+          <App />
+          <Toaster closeButton />
+        </SocketProvider>
+      </PersistGate>
+    </Provider>
+  </StrictMode>
 );
