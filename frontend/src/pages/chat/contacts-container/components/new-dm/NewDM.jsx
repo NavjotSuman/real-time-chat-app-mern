@@ -43,7 +43,7 @@ const NewDM = () => {
 
 
     } catch (error) {
-      console.log("Error at the search contact NewDM", error)
+      console.log(error)
     }
   }
 

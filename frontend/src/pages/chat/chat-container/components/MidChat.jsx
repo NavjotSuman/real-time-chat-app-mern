@@ -25,7 +25,7 @@ const MidChat = () => {
   const [showVideo, setShowVideo] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
 
-  console.log("Selected Chat Message : ", selectedChatMessages);
+  // console.log("Selected Chat Message : ", selectedChatMessages);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -50,7 +50,7 @@ const MidChat = () => {
           `/api/channel/get-channel-messages/${selectedChatData._id}`,
           { withCredentials: true }
         );
-        console.log("GET CHANNEL MESSAGES FOR : ", res.data)
+        // console.log("GET CHANNEL MESSAGES FOR : ", res.data)
         if (res.data.messages) {
           dispatch(setSelectedChatMessages(res.data.messages));
         }
@@ -115,7 +115,7 @@ const MidChat = () => {
     // alert("downloading...")
     dispatch(setIsDownloading(true));
     dispatch(setFileDownloadProgress(0));
-    console.log("FILE URL : ", fileUrl);
+    // console.log("FILE URL : ", fileUrl);
     try {
       const res = await axios.get(fileUrl, {
         responseType: "blob",
@@ -126,7 +126,7 @@ const MidChat = () => {
         },
       });
       const urlBlob = window.URL.createObjectURL(new Blob([res.data]));
-      console.log("res at download File : ", urlBlob);
+      // console.log("res at download File : ", urlBlob);
       const link = document.createElement("a");
       link.href = urlBlob;
       link.setAttribute("download", fileUrl.split("/").pop());
@@ -140,7 +140,7 @@ const MidChat = () => {
       dispatch(setIsDownloading(false));
       dispatch(setFileDownloadProgress(0));
       // console.error(error);
-      console.log("error : ", error);
+      console.log(error);
     }
   };
 

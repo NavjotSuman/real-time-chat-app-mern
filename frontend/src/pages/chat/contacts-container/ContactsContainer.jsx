@@ -16,7 +16,7 @@ const ContactsContainer = () => {
                 withCredentials: true,
             });
             if (res.data.contacts) {
-                console.log(res.data.contacts);
+                // console.log(res.data.contacts);
                 dispatch(setDirectMessagesContacts(res.data.contacts))
             }
         };
@@ -25,7 +25,7 @@ const ContactsContainer = () => {
                 withCredentials: true,
             });
             if (res.data.channels) {
-                console.log(res.data.channels);
+                // console.log(res.data.channels);
                 dispatch(setChannels(res.data.channels))
             }
         };
@@ -33,7 +33,7 @@ const ContactsContainer = () => {
         getChannel()
     }, []);
 
-    console.log("Channels : ",channels)
+    // console.log("Channels : ",channels)
 
     return (
         <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">

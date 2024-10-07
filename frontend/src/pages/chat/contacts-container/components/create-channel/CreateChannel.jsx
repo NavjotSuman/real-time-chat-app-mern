@@ -44,7 +44,7 @@ const CreateChannel = () => {
           name: channelName,
           members: selectedContacts?.map((contact) => contact.value)
         }, { withCredentials: true })
-        console.log("Create Channel Res : ", res)
+        // console.log("Create Channel Res : ", res)
 
         if (res.status === 201 && res.data.success) {
           setChannelName("")

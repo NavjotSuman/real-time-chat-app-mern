@@ -48,7 +48,7 @@ const BottomChat = () => {
                 fileUrl: undefined
             })
         } else if (selectedChatType === "channel") {
-            console.log("handleSendMessage at BottomChat : message is being send... to server")
+            // console.log("handleSendMessage at BottomChat : message is being send... to server")
             socket.emit("sendChannelMessage", {
                 sender: userInfo._id,
                 content: message,
@@ -82,7 +82,7 @@ const BottomChat = () => {
                         // dispatch(setFileUploadProgress(Math.round(100 * data.loaded) / data.total))
                     }
                 })
-                console.log("File Uploaded Res : ", res)
+                // console.log("File Uploaded Res : ", res)
 
                 if (res.status === 200 && res.data.success) {
                     dispatch(setIsUploading(false))
@@ -97,7 +97,7 @@ const BottomChat = () => {
                             fileUrl: res.data.filePath
                         })
                     } else if (selectedChatType === "channel") {
-                        console.log("handeAttachmentChange at BottomChat : file is being send... to server")
+                        // console.log("handeAttachmentChange at BottomChat : file is being send... to server")
                         socket.emit("sendChannelMessage", {
                             sender: userInfo._id,
                             content: undefined,

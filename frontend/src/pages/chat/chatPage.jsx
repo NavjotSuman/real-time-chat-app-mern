@@ -11,8 +11,8 @@ const ChatPage = () => {
 
   const { userInfo } = useSelector(store => store.auth)
   const { selectedChatType, isUploading, isDownloading, fileUploadProgress, fileDownloadProgress } = useSelector(store => store.chat)
-  console.log("Is Uploading : ", isUploading)
-  console.log("Is Downloading : ", isDownloading)
+  // console.log("Is Uploading : ", isUploading)
+  // console.log("Is Downloading : ", isDownloading)
   const naviagte = useNavigate();
   // const dis = useDispatch()
   // dis(setIsUploading(false))

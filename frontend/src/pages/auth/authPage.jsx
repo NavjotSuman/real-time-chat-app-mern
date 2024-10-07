@@ -39,7 +39,7 @@ const AuthPage = () => {
             else{
                 toast.error(res.data.error)
             }
-            console.log(res);
+            // console.log(res);
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.error);

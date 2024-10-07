@@ -10,7 +10,7 @@ const TopChat = () => {
   const { selectedChatData, selectedChatType } = useSelector(
     (store) => store.chat
   );
-  console.log("SElected Chat DAta : ", selectedChatData);
+  // console.log("SElected Chat DAta : ", selectedChatData);
 
   return (
     <div className="h-[10vh] border-b-2 border-[#2f303b] flex items-center justify-between px-8 md:px-16">

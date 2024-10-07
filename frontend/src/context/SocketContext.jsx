@@ -22,9 +22,7 @@ const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         if (userInfo) {
-            // socket.current = io("https://real-time-chat-app-mern-mjjd.onrender.com", {
             socket.current = io("https://real-time-chat-app-mern-mjjd.onrender.com", {
-                // socket.current =  io(String(import.meta.env.SERVER_ORIGI), {
                 withCredentials: true,
                 query: { userId: userInfo._id },
             });
@@ -35,13 +33,13 @@ const SocketProvider = ({ children }) => {
 
 
             const handleRecieveMessage = (message) => {
-                console.log("handleReciveMessage : ",message)
+                // console.log("handleReciveMessage : ",message)
                 if (
                     selectedChatType !== undefined &&
                     (selectedChatData._id === message.sender._id ||
                         selectedChatData._id === message.recipient._id)
                 ) {
-                    console.log("Msssage Recieve : ", message)
+                    // console.log("Msssage Recieve : ", message)
                     dispatch(addMessage(message))
                 }
                 dispatch(arrangeContactsinContactList({message, userId: userInfo._id}))
@@ -49,7 +47,7 @@ const SocketProvider = ({ children }) => {
 
             const handleRecieveChannelMessage = async (message) => {
                 if (selectedChatType !== undefined && selectedChatData._id === message.channelId) {
-                    console.log("handleRecieveChannelMessage : seting message of channel to Reducer.")
+                    // console.log("handleRecieveChannelMessage : seting message of channel to Reducer.")
                     dispatch(addMessage(message))
                 }
                 dispatch(arrangeChannelsinChannelList(message))

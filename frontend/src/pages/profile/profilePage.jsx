@@ -58,13 +58,13 @@ const ProfilePage = () => {
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0]
-    console.log({ file })
+    // console.log({ file })
     if (file) {
       const formData = new FormData()
       formData.append("profile-image", file)
 
       const res = await axios.post("/api/auth/updateProfileImage", formData, { withCredentials: true })
-      console.log(res)
+      // console.log(res)
       if (res.status === 200 && res.data.user.image) {
         dispatch(setUserInfo({ ...userInfo, image: res.data.user.image }))
         toast.success(res.data.message)
@@ -78,13 +78,13 @@ const ProfilePage = () => {
   const handleDeleteImage = async () => {
     try {
       const res = await axios.post("/api/auth/updateProfileImage_remove")
-      console.log(res)
+      // console.log(res)
       if (res.status === 200) {
         dispatch(setUserInfo({ ...userInfo, image: "" }))
         toast.success(res.data.message)
       }
     } catch (error) {
-
+console.log(error)
     }
   }
 
@@ -92,7 +92,7 @@ const ProfilePage = () => {
     setImage(userInfo?.image)
   }, [userInfo])
 
-  console.log("User-info at ProfilePage : ", userInfo)
+  // console.log("User-info at ProfilePage : ", userInfo)
 
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
