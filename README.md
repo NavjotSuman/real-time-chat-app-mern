@@ -5,7 +5,7 @@
 
 
 - If you liked it then give this Repository a Star⭐
-- Live visit : [Check-Preview](https://localhost:3000)
+- Live visit : [Check-Preview](https://real-time-chat-app-mern-mjjd.onrender.com)
 
 ## Technologies Used
 
