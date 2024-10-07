@@ -22,7 +22,7 @@ const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         if (userInfo) {
-            socket.current = io("http://localhost:4000", {
+            socket.current = io("https://real-time-chat-app-mern-mjjd.onrender.com", {
                 // socket.current =  io(String(import.meta.env.SERVER_ORIGI), {
                 withCredentials: true,
                 query: { userId: userInfo._id },
