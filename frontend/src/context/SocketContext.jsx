@@ -22,6 +22,7 @@ const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         if (userInfo) {
+            // socket.current = io("https://real-time-chat-app-mern-mjjd.onrender.com", {
             socket.current = io("https://real-time-chat-app-mern-mjjd.onrender.com", {
                 // socket.current =  io(String(import.meta.env.SERVER_ORIGI), {
                 withCredentials: true,

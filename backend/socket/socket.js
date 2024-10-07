@@ -14,7 +14,7 @@ import Channel from "../models/channel.model.js"
 
 const setupSocket = (server) => {
 
-    const io = new Server(server, { cors: { origin: process.env.ORIGIN, credentials: true } })
+    const io = new Server(server, { cors: { origin: process.env.ORIGIN, methods: ['GET', 'POST'], credentials: true } })
     const userSocketMap = new Map()
 
     const disconnect = (socket) => {
