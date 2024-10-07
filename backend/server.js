@@ -28,7 +28,8 @@ const __dirname = path.resolve();
 
 
 app.use(cors({ origin: [process.env.ORIGIN], credentials: true }));
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

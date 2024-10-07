@@ -187,7 +187,7 @@ export const updateProfileImage = async (req, res) => {
       return res.status(400).json({ error: "image is required", success: false })
     }
     const cloudinary_PublicID = userId+uuid()
-
+console.log("file PATH : ",req.file)
     const cloudinary_res = await cloudinary.uploader.upload(req.file.path, { public_id: cloudinary_PublicID })
     // Optimize delivery by resizing and applying auto-format and auto-quality
     const optimizeUrl = cloudinary.url(cloudinary_PublicID, {
