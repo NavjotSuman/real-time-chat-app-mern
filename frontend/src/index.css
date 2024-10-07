@@ -72,3 +72,12 @@
   font-weight: 500;
   font-style: normal;
 }
+
+/* Using Tailwind CSS */
+.scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

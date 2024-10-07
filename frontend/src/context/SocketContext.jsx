@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { addMessage } from "@/store/chatSlice";
+import { addMessage, arrangeChannelsinChannelList, arrangeContactsinContactList } from "@/store/chatSlice";
 
 
 const SocketContext = createContext(null);
@@ -34,7 +34,7 @@ const SocketProvider = ({ children }) => {
 
 
             const handleRecieveMessage = (message) => {
-                // console.log("handleReciveMessage : ",message)
+                console.log("handleReciveMessage : ",message)
                 if (
                     selectedChatType !== undefined &&
                     (selectedChatData._id === message.sender._id ||
@@ -43,9 +43,19 @@ const SocketProvider = ({ children }) => {
                     console.log("Msssage Recieve : ", message)
                     dispatch(addMessage(message))
                 }
+                dispatch(arrangeContactsinContactList({message, userId: userInfo._id}))
             };
 
+            const handleRecieveChannelMessage = async (message) => {
+                if (selectedChatType !== undefined && selectedChatData._id === message.channelId) {
+                    console.log("handleRecieveChannelMessage : seting message of channel to Reducer.")
+                    dispatch(addMessage(message))
+                }
+                dispatch(arrangeChannelsinChannelList(message))
+            }
+
             socket.current.on("recieveMessage", handleRecieveMessage);
+            socket.current.on("recieveChannelMessage",handleRecieveChannelMessage)
 
             // Store the initialized socket in the state so it can be passed via context
             setSocketInstance(socket.current);

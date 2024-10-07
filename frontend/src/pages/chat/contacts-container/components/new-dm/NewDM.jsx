@@ -83,7 +83,7 @@ const NewDM = () => {
             <ScrollArea className="h-[250px]">
               <div className="flex flex-col gap-5">
                 {
-                  searchedContacts.map(contact => <div key={contact._id} onClick={() => selectNewContact(contact)} className="flex gap-3 items-center cursor-pointer">
+                  searchedContacts?.map(contact => <div key={contact._id} onClick={() => selectNewContact(contact)} className="flex gap-3 items-center cursor-pointer">
                     <div className='h-12 w-12 relative'>
                       <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                         {contact.image ? (

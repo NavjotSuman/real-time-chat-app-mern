@@ -41,7 +41,9 @@ export const uploadFile = async (req, res) => {
 
         const cloudinary_res = await cloudinary.uploader.upload(req.file.path, { resource_type: "raw" })
         fs.unlink(req.file.path, (err) => {
-            console.log("Error at unlink multer upload file", err)
+            if (err) {
+                console.log("Error at unlink multer upload file", err)
+            }
         })
         // console.log(cloudinary_res)
 

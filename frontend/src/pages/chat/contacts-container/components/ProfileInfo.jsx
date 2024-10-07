@@ -9,6 +9,7 @@ import { TbLogout2 } from "react-icons/tb";
 import axios from 'axios'
 import { setUserInfo } from '@/store/authSlice'
 import { toast } from 'sonner'
+import { setSelectedChatData, setSelectedChatType } from '@/store/chatSlice'
 
 const ProfileInfo = () => {
     const { userInfo } = useSelector(store => store.auth)
@@ -20,6 +21,8 @@ const ProfileInfo = () => {
             const res = await axios.post("/api/auth/logout")
             if (res.data.success && res.status === 200) {
                 dispatch(setUserInfo(null))
+                dispatch(setSelectedChatData(undefined))
+                dispatch(setSelectedChatType(undefined))
                 toast.success(res.data.message)
                 navigate("/auth")
             }

@@ -166,7 +166,7 @@ const ProfilePage = () => {
               />
             </div>
             <div className="w-full flex gap-5">
-              {colors.map((color, index) => <div className={`${color} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${selectedColor === index ? "outline outline-white/50 outline-1" : ""}`} key={index} onClick={() => setSelectedColor(index)}></div>)}
+              {colors?.map((color, index) => <div className={`${color} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${selectedColor === index ? "outline outline-white/50 outline-1" : ""}`} key={index} onClick={() => setSelectedColor(index)}></div>)}
             </div>
           </div>
         </div>

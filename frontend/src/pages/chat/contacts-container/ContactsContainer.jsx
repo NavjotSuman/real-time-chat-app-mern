@@ -3,11 +3,12 @@ import ProfileInfo from "./components/ProfileInfo";
 import NewDM from "./components/new-dm/NewDM";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setDirectMessagesContacts } from "@/store/chatSlice";
+import { setChannels, setDirectMessagesContacts } from "@/store/chatSlice";
 import ContactList from "@/components/ContactList";
+import CreateChannel from "./components/create-channel/CreateChannel";
 
 const ContactsContainer = () => {
-    const {directMessagesContacts} = useSelector(store=>store.chat)
+    const {directMessagesContacts,channels} = useSelector(store=>store.chat)
     const dispatch = useDispatch()
     useEffect(() => {
         const getContacts = async () => {
@@ -19,8 +20,20 @@ const ContactsContainer = () => {
                 dispatch(setDirectMessagesContacts(res.data.contacts))
             }
         };
+        const getChannel = async () => {
+            const res = await axios.get("/api/channel/get-user-channels", {
+                withCredentials: true,
+            });
+            if (res.data.channels) {
+                console.log(res.data.channels);
+                dispatch(setChannels(res.data.channels))
+            }
+        };
         getContacts();
+        getChannel()
     }, []);
+
+    console.log("Channels : ",channels)
 
     return (
         <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">
@@ -39,6 +52,10 @@ const ContactsContainer = () => {
             <div className="my-5">
                 <div className="flex items-center justify-between pr-10">
                     <Title text="Channels" />
+                    <CreateChannel />
+                </div>
+                <div className="max-h-[38vh] overflow-y-auto scrollbar-hidden">
+                    <ContactList contacts={channels} isChannel={true} />
                 </div>
             </div>
             <ProfileInfo />
@@ -76,7 +93,7 @@ const Logo = () => {
                     fill="#a16ee8"
                 ></path>{" "}
             </svg>
-            <span className="text-3xl font-semibold ">Navjot Suman</span>
+            <span className="text-3xl font-semibold ">Chat App</span>
         </div>
     );
 };

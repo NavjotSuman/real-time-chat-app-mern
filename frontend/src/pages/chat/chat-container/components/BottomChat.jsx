@@ -3,11 +3,14 @@ import { IoSend } from 'react-icons/io5'
 import { GrAttachment } from 'react-icons/gr'
 import { RiEmojiStickerLine } from "react-icons/ri"
 import EmojiPicker from 'emoji-picker-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useSocket } from '@/context/SocketContext'
 import axios from 'axios'
+import { addMessage, setFileUploadProgress, setIsUploading } from '@/store/chatSlice'
 
 const BottomChat = () => {
+    // setIsUploading
+    // setFileUploadProgress
     const emojiRef = useRef()
     const fileInputRef = useRef()
     const { selectedChatType, selectedChatData } = useSelector(store => store.chat)
@@ -15,6 +18,7 @@ const BottomChat = () => {
     const socket = useSocket()
     const [message, setMessage] = useState("")
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
+    const dispatch = useDispatch()
     // const socket = useContext(SocketContext)
 
     useEffect(() => {
@@ -24,6 +28,8 @@ const BottomChat = () => {
             }
         }
         document.addEventListener('mousedown', handleClickOutside)
+        dispatch(setIsUploading(false))
+        dispatch(setFileUploadProgress(0))
         return () => { document.removeEventListener('mousedown', handleClickOutside) }
     }, [emojiRef])
 
@@ -41,9 +47,18 @@ const BottomChat = () => {
                 messageType: "text",
                 fileUrl: undefined
             })
-            setMessage("")
-            setEmojiPickerOpen(false)
+        } else if (selectedChatType === "channel") {
+            console.log("handleSendMessage at BottomChat : message is being send... to server")
+            socket.emit("sendChannelMessage", {
+                sender: userInfo._id,
+                content: message,
+                messageType: "text",
+                fileUrl: undefined,
+                channelId: selectedChatData._id
+            })
         }
+        setMessage("")
+        setEmojiPickerOpen(false)
     }
 
     const handeAttachmentClick = () => {
@@ -57,24 +72,48 @@ const BottomChat = () => {
             const file = event.target.files[0]
             if (file) {
                 const formData = new FormData()
-                formData.append("file",file)
-                const res = await axios.post("/api/messages/upload-file", formData, { withCredentials: true })
-                console.log(res)
+                formData.append("file", file)
+                dispatch(setIsUploading(true))
+                const res = await axios.post("/api/messages/upload-file", formData, {
+                    withCredentials: true,
+                    onUploadProgress: (data) => {
+                        const progress = Math.round(100 * (data.loaded / data.total));
+                        dispatch(setFileUploadProgress(progress));
+                        // dispatch(setFileUploadProgress(Math.round(100 * data.loaded) / data.total))
+                    }
+                })
+                console.log("File Uploaded Res : ", res)
 
-                if (res.status ===200 && res.data.success) {
+                if (res.status === 200 && res.data.success) {
+                    dispatch(setIsUploading(false))
+                    dispatch(setFileUploadProgress(0))
                     if (selectedChatType === "contact") {
                         socket.emit("sendMessage", {
                             sender: userInfo._id,
                             content: undefined,
                             recipient: selectedChatData._id,
                             messageType: "file",
-                            fileName:res.data.fileName,
+                            fileName: res.data.fileName,
                             fileUrl: res.data.filePath
                         })
+                    } else if (selectedChatType === "channel") {
+                        console.log("handeAttachmentChange at BottomChat : file is being send... to server")
+                        socket.emit("sendChannelMessage", {
+                            sender: userInfo._id,
+                            content: undefined,
+                            messageType: "file",
+                            fileName: res.data.fileName,
+                            fileUrl: res.data.filePath,
+                            channelId: selectedChatData._id
+                        })
                     }
+                    setMessage("")
+                    setEmojiPickerOpen(false)
                 }
             }
         } catch (error) {
+            dispatch(setIsUploading(false))
+            dispatch(setFileUploadProgress(0))
             console.log(error)
         }
     }
