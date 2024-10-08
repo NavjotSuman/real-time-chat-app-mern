@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const MidChat = () => {
   const scrollRef = useRef();
-  const { selectedChatType, selectedChatData, selectedChatMessages } =
+  const { selectedChatType, selectedChatData, selectedChatMessages,channels } =
     useSelector((store) => store.chat);
   const { userInfo } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const MidChat = () => {
         getChannelMessages()
       }
     }
-  }, [selectedChatData, selectedChatType, dispatch, selectedChatMessages]);
+  }, [selectedChatData, selectedChatType, dispatch, selectedChatMessages, channels]);
 
   useEffect(() => {
     if (scrollRef.current) {
