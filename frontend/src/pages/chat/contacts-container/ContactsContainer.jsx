@@ -93,7 +93,7 @@ const Logo = () => {
                     fill="#a16ee8"
                 ></path>{" "}
             </svg>
-            <span className="text-3xl font-semibold ">Chat App</span>
+            <a className="text-3xl font-semibold " href="https://github.com/NavjotSuman/real-time-chat-app-mern" target="_blank">Chat App</a>
         </div>
     );
 };
