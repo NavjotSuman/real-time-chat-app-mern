@@ -227,7 +227,7 @@ const MidChat = () => {
     //   userInfo
     // );
 
-    return (
+    return message?.sender?._id && (
       <div
         className={`mt-5 ${message.sender._id !== userInfo._id ? "text-left" : "text-right"
           }`}

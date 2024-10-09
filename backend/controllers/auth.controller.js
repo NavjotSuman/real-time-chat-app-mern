@@ -95,7 +95,7 @@ export const login = async (req, res) => {
     if (!user || !isPasswordCorrect) {
       return res
         .status(400)
-        .json({ error: "Invalid Username or Password", success: false });
+        .json({ error: "Invalid Email or Password", success: false });
     }
 
     generateToken(user._id, email, res);

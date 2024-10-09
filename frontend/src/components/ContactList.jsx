@@ -16,6 +16,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
 
     const handleClick = (contact) => {
         if (isChannel) {
+            dispatch(setSelectedChatMessages([]))
             dispatch(setSelectedChatType("channel"));
         } else {
             dispatch(setSelectedChatType("contact"));
@@ -28,12 +29,12 @@ const ContactList = ({ contacts, isChannel = false }) => {
     // console.log("Contacts : ", contacts);
     return (
         <div className="mt-5">
-            {contacts && contacts.map((contact) => (
+            {contacts && contacts?.map((contact) => (
                 <div
                     key={contact._id}
                     className={`pl-10 py-2 transition-all duration-300 cursor-pointer ${selectedChatData && selectedChatData._id === contact._id
-                            ? "bg-[#8417ff] hover:bg-[#8417ff]"
-                            : "hover:bg-[#f1f1f111]"
+                        ? "bg-[#8417ff] hover:bg-[#8417ff]"
+                        : "hover:bg-[#f1f1f111]"
                         }`}
                     onClick={() => handleClick(contact)}
                 >
@@ -49,8 +50,8 @@ const ContactList = ({ contacts, isChannel = false }) => {
                                 ) : (
                                     <div
                                         className={`${selectedChatData && selectedChatData._id === contact._id
-                                                ? "bg-[#ffffff22] border border-white/70"
-                                                : getColor(contact.color)
+                                            ? "bg-[#ffffff22] border border-white/70"
+                                            : getColor(contact.color)
                                             } uppercase h-10 w-10 text-lg border-[1px] flex items-center justify-center rounded-full`}
                                     >
                                         {contact.firstName

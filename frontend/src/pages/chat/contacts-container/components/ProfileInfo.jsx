@@ -9,7 +9,7 @@ import { TbLogout2 } from "react-icons/tb";
 import axios from 'axios'
 import { setUserInfo } from '@/store/authSlice'
 import { toast } from 'sonner'
-import { setSelectedChatData, setSelectedChatType } from '@/store/chatSlice'
+import { setChannels, setDirectMessagesContacts, setFileDownloadProgress, setFileUploadProgress, setIsDownloading, setIsUploading, setSelectedChatData, setSelectedChatMessages, setSelectedChatType } from '@/store/chatSlice'
 
 const ProfileInfo = () => {
     const { userInfo } = useSelector(store => store.auth)
@@ -23,6 +23,13 @@ const ProfileInfo = () => {
                 dispatch(setUserInfo(null))
                 dispatch(setSelectedChatData(undefined))
                 dispatch(setSelectedChatType(undefined))
+                dispatch(setSelectedChatMessages([]))
+                dispatch(setDirectMessagesContacts([]))
+                dispatch(setIsUploading(false))
+                dispatch(setIsDownloading(false))
+                dispatch(setFileUploadProgress(0))
+                dispatch(setFileDownloadProgress(0))
+                dispatch(setChannels([]))
                 toast.success(res.data.message)
                 navigate("/auth")
             }
